@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selenium Script Output</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        .link {
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+        }
+    </style>
+    <script>
+        async function runScript() {
+            try {
+                const response = await fetch('http://127.0.0.1:5000/run-selenium', {
+                    method: 'GET',
+                    
+                }); // Endpoint exposed by Flask server
+
+                console.log(response)
+
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                
+                const data = await response.json();
+
+                const outputDiv = document.getElementById('output');
+                outputDiv.innerHTML = `
+                    <p>These are the most happening topics as on ${data.timestamp}:</p>
+                     <ol class="trends" start = "1">
+                        ${Object.entries(data.trends).map(([key, value]) => `<li>: ${value}</li>`).join('')}
+                    </ol>
+                    <p>The IP address used for this query was ${data.ip_address}.</p>
+                    <p>Unique ID: ${data.unique_id}</p>
+                    <p>Here’s the JSON response:</p>
+                    <pre>${JSON.stringify(data, null, 4)}</pre>
+                `;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('output').innerText = 'Failed to fetch data from the server.';
+            }
+        }
+    </script>
+</head>
+<body>
+    <p><span class="link" onclick="runScript()">Click here to run the script.</span></p>
+    <div id="output" class="output"></div>
+</body>
+</html>
