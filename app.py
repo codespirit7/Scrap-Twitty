@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from scrap_script import ScrapTwitter  # Import the function from main.py
+from scrap_script import ScrapTwitter  # Import the function from scrap_script.py
 from flask_cors import CORS
 
 app = Flask(__name__)
