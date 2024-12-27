@@ -8,3 +8,8 @@
 
 ## JSON Response
 ![Screenshot from 2024-12-28 00-50-22](https://github.com/user-attachments/assets/bd263997-da6d-4f59-b78b-69ac11aeb0a0)
+
+## .env file
+![image](https://github.com/user-attachments/assets/b6559d31-e97c-4dfa-b51f-97f76f9455e3)
+
+
